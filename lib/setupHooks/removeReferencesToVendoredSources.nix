@@ -4,6 +4,7 @@
   pkgsBuildBuild,
   pkgs,
   stdenvSelector,
+  callPackage,
 }:
 
 let
@@ -14,6 +15,7 @@ makeSetupHook {
   name = "removeReferencesToVendoredSourcesHook";
   substitutions = {
     storeDir = builtins.storeDir;
+    nukeRefsTo = callPackage ./nukeRefsTo.nix { };
     sourceSigningUtils = lib.optionalString darwinCodeSign ''
       source ${pkgsBuildBuild.darwin.signingUtils}
     '';
